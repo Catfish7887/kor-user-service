@@ -4,9 +4,7 @@ import java.util.Optional;
 
 import ru.kor.Exceptions.User.InvalidFieldsException;
 import ru.kor.Exceptions.UserRepository.RepositoryError;
-import ru.kor.Exceptions.UserService.InvalidDataException;
 import ru.kor.Exceptions.UserService.UserNotFoundException;
-import ru.kor.RequestParser.RequestParser;
 import ru.kor.User.User;
 import ru.kor.UserRepository.UserRepository;
 
@@ -27,16 +25,13 @@ public class UserService {
         return data.get();
     }
 
-    public void createUser(String data) throws InvalidDataException, RepositoryError {
+    public User createUser(User user) throws InvalidFieldsException, RepositoryError {
         try {
-            User user = RequestParser.parse(data);
             repository.save(user);
-        } catch (InvalidFieldsException e) {
-            throw new InvalidDataException("Некорректные данные: " + e.getMessage());
+            return user;
         } catch (RepositoryError e) {
             throw new RepositoryError("Произошла ошибка хранилища: " + e.getMessage());
         }
-
     }
 
     public void deleteUser(long id) throws UserNotFoundException, RepositoryError {

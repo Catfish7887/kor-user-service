@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import ru.kor.Exceptions.User.InvalidFieldsException;
 import ru.kor.Exceptions.UserRepository.RepositoryError;
-import ru.kor.Exceptions.UserService.InvalidDataException;
 import ru.kor.Exceptions.UserService.UserNotFoundException;
 import ru.kor.RequestParser.RequestParser;
 import ru.kor.User.User;
@@ -19,6 +18,7 @@ public class UserServiceTest {
     private UserService service;
     String data = "id=1;name=name;email=email";
     @BeforeEach
+    @SuppressWarnings("unused")
     void setup(){
         repository = new InMemoryUserRepository();
         service = new UserService(repository);
@@ -39,22 +39,21 @@ public class UserServiceTest {
     }
 
     @Test
-    void testCreateUser() throws InvalidDataException, RepositoryError {
-        service.createUser(data);
-        assertThrows(InvalidDataException.class, () -> {
-            service.createUser("id=sadawd");
-        });
-
+    void testCreateUser() throws InvalidFieldsException, RepositoryError, UserNotFoundException{
+        User user = RequestParser.parse(data);
+        service.createUser(user);
+        service.findById(user.getId());
     }
 
     @Test
-    void testDeleteUser()throws UserNotFoundException, RepositoryError, InvalidDataException {
-        service.createUser(data);
-        User user = service.findById(1);
-        service.deleteUser(1);
+    void testDeleteUser()throws UserNotFoundException, RepositoryError, InvalidFieldsException {
+        User user = RequestParser.parse(data);
+        service.createUser(user);
+        service.findById(user.getId());
+        service.deleteUser(user.getId());
         assertThrows(UserNotFoundException.class, ()->{
 
-            service.findById(1);
+            service.findById(user.getId());
         });
     }
 
