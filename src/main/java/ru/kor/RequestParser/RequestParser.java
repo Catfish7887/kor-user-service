@@ -1,6 +1,6 @@
 package ru.kor.RequestParser;
 
-import ru.kor.Exceptions.InvalidFieldsException;
+import ru.kor.Exceptions.User.InvalidFieldsException;
 import ru.kor.User.User;
 
 public class RequestParser {

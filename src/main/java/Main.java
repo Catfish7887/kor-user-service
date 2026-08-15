@@ -1,5 +1,5 @@
 
-import ru.kor.Exceptions.InvalidFieldsException;
+import ru.kor.Exceptions.User.InvalidFieldsException;
 import ru.kor.RequestParser.RequestParser;
 import ru.kor.User.User;
 public class Main {

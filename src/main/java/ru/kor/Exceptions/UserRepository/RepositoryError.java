@@ -1,4 +1,4 @@
-package ru.kor.Exceptions;
+package ru.kor.Exceptions.UserRepository;
 
 public class RepositoryError extends Exception {
     public RepositoryError(){

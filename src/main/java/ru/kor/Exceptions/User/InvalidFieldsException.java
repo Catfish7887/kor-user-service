@@ -1,4 +1,4 @@
-package ru.kor.Exceptions;
+package ru.kor.Exceptions.User;
 
 public class InvalidFieldsException extends Exception{
 

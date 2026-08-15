@@ -1,8 +1,8 @@
-package ru.kor.User.UserRepository;
+package ru.kor.UserRepository;
 
 import java.util.Optional;
 
-import ru.kor.Exceptions.RepositoryError;
+import ru.kor.Exceptions.UserRepository.RepositoryError;
 import ru.kor.User.User;
 public interface UserRepository {
 

@@ -1,8 +1,8 @@
-package ru.kor.User.UserRepository;
+package ru.kor.UserRepository;
 import java.util.HashMap;
 import java.util.Optional;
 
-import ru.kor.Exceptions.RepositoryError;
+import ru.kor.Exceptions.UserRepository.RepositoryError;
 import ru.kor.User.User;
 public class InMemoryUserRepository implements UserRepository {
     final private HashMap<Long, User> storage;
@@ -24,7 +24,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
     @Override
     public void save(User user) throws RepositoryError{
-        
+
         if(storage.containsKey(user.getId()))
             throw new RepositoryError("Пользователь с указанным ID уже существует");
 
