@@ -1,5 +1,5 @@
 package ru.kor.User;
-
+import java.util.Objects;
 public class User {
     private long id;
     private String name;
@@ -44,6 +44,23 @@ public class User {
             ", name='" + getName() + "'" +
             ", email='" + getEmail() + "'" +
             "}";
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User user = (User) o;
+        return id == user.id && Objects.equals(name, user.name) && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email);
     }
 
 }

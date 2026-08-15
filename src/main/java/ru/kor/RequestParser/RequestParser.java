@@ -11,25 +11,27 @@ public class RequestParser {
 
         String[] dataArray = data.split(";");
         for (int i = 0; i < dataArray.length; i++) {
-            String[] field = dataArray[i].split("=");
-            if(field.length < 2)
+            String[] field = dataArray[i].split("=",2);
+            if (field.length < 2) {
                 throw new InvalidFieldsException("Некорректный размер поля");
+            }
             String key = field[0];
             String value = field[1];
 
             // Если значение отсутствует
-            if (key == null || value == null) {
-                throw new InvalidFieldsException("Значение поля(ей) некорретно");
-            }
-
-            switch (key){
-                case "id":{
-                    Long id = Long.parseLong(value);
-                    if(id < 0){
-                        throw new InvalidFieldsException("Значение ID не может быть меньше 0");
+            switch (key) {
+                case "id": {
+                    try {
+                        long id = Long.parseLong(value);
+                        if (id < 0) {
+                            throw new InvalidFieldsException("Значение ID не может быть меньше 0");
+                        }
+                        user.setId(id);
+                        break;
+                    } catch (NumberFormatException e) {
+                        throw new InvalidFieldsException("Неправильный формат поля ID");
                     }
-                    user.setId(id);
-                    break;
+
                 }
                 case "email":
                     user.setEmail(value);
@@ -41,6 +43,11 @@ public class RequestParser {
                     throw new InvalidFieldsException("Значение поля(ей) некорретно");
             }
         }
+
+        if (user.getId() == -1 || user.getEmail() == null || user.getName() == null) {
+            throw new InvalidFieldsException("Одно или несколько полей пустые");
+        }
+
         return user;
     }
 }
