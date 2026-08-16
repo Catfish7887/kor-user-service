@@ -1,5 +1,6 @@
 package UserService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,10 +32,11 @@ public class UserServiceTest {
         // User user_2 = RequestParser.parse("id=2;name=name;email=email");
 
         repository.save(user_1);
-        service.findById(user_1.getId());
-
+        User user = service.findById(user_1.getId());
+        assertEquals(user_1, user); 
+        
         assertThrows(UserNotFoundException.class, () -> {
-            service.findById(2);
+            User user2 = service.findById(2); 
         });
     }
 
@@ -42,17 +44,17 @@ public class UserServiceTest {
     void testCreateUser() throws InvalidFieldsException, RepositoryError, UserNotFoundException{
         User user = RequestParser.parse(data);
         service.createUser(user);
-        service.findById(user.getId());
+        User user_new = service.findById(user.getId());
+        assertEquals(user, user_new);
     }
 
     @Test
     void testDeleteUser()throws UserNotFoundException, RepositoryError, InvalidFieldsException {
         User user = RequestParser.parse(data);
         service.createUser(user);
-        service.findById(user.getId());
         service.deleteUser(user.getId());
         assertThrows(UserNotFoundException.class, ()->{
-
+            
             service.findById(user.getId());
         });
     }

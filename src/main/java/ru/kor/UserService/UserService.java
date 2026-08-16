@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import ru.kor.Exceptions.User.InvalidFieldsException;
 import ru.kor.Exceptions.UserRepository.RepositoryError;
-import ru.kor.Exceptions.UserService.UserNotFoundException;
+import ru.kor.Exceptions.UserRepository.RepositoryErrorCodes;
 import ru.kor.User.User;
 import ru.kor.UserRepository.UserRepository;
 
@@ -16,36 +16,23 @@ public class UserService {
         this.repository = repository;
     }
 
-    public User findById(long id) throws UserNotFoundException {
+    public User findById(long id) throws RepositoryError {
         Optional<User> data = repository.findById(id);
         if (data.isEmpty()) {
-            throw new UserNotFoundException("Пользователь с указанным ID не найден.");
+            throw new RepositoryError("Пользователь с указанным ID не найден.", RepositoryErrorCodes.USER_NOT_FOUND);
         }
 
         return data.get();
     }
 
     public User createUser(User user) throws InvalidFieldsException, RepositoryError {
-        try {
             repository.save(user);
             return user;
-        } catch (RepositoryError e) {
-            throw new RepositoryError("Произошла ошибка хранилища: " + e.getMessage());
-        }
+        
     }
 
-    public void deleteUser(long id) throws UserNotFoundException, RepositoryError {
-        Optional<User> data = repository.findById(id);
-        if (data.isEmpty()) {
-            throw new UserNotFoundException("Пользователь с указанным ID не найден.");
-        }
-
-        try {
+    public void deleteUser(long id) throws RepositoryError {
             repository.deleteById(id);
-        } catch (RepositoryError e) {
-            throw new RepositoryError("Произошла ошибка хранилища: " + e.getMessage());
-        }
-
     }
 
 }
