@@ -2,11 +2,11 @@ package ru.kor.UserService;
 
 import java.util.Optional;
 
-import ru.kor.Exceptions.User.InvalidFieldsException;
-import ru.kor.Exceptions.UserRepository.RepositoryError;
-import ru.kor.Exceptions.UserRepository.RepositoryErrorCodes;
 import ru.kor.User.User;
 import ru.kor.UserRepository.UserRepository;
+import ru.kor.Utils.Exceptions.UserRepository.RepositoryError;
+import ru.kor.Utils.Exceptions.UserRepository.Utils.RepositoryErrorCodes;
+import ru.kor.Utils.Exceptions.Validation.ValidationException;
 
 public class UserService {
 
@@ -25,7 +25,7 @@ public class UserService {
         return data.get();
     }
 
-    public User createUser(User user) throws InvalidFieldsException, RepositoryError {
+    public User createUser(User user) throws ValidationException, RepositoryError {
             repository.save(user);
             return user;
         

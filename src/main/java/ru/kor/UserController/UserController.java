@@ -1,9 +1,9 @@
 package ru.kor.UserController;
 
 import ru.kor.APIresponse.APIresponse;
-import ru.kor.Exceptions.User.InvalidFieldsException;
-import ru.kor.Exceptions.UserRepository.RepositoryError;
-import ru.kor.Exceptions.UserRepository.RepositoryErrorCodes;
+import ru.kor.Utils.Exceptions.User.InvalidFieldsException;
+import ru.kor.Utils.Exceptions.UserRepository.RepositoryError;
+import ru.kor.Utils.Exceptions.UserRepository.Utils.RepositoryErrorCodes;
 import ru.kor.RequestParser.RequestParser;
 import ru.kor.ResponseSerializer.ResponseSerializer;
 import ru.kor.User.User;

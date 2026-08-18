@@ -2,9 +2,9 @@ package ru.kor.UserRepository;
 import java.util.HashMap;
 import java.util.Optional;
 
-import ru.kor.Exceptions.UserRepository.RepositoryError;
-import ru.kor.Exceptions.UserRepository.RepositoryErrorCodes;
 import ru.kor.User.User;
+import ru.kor.Utils.Exceptions.UserRepository.RepositoryError;
+import ru.kor.Utils.Exceptions.UserRepository.Utils.RepositoryErrorCodes;
 public class InMemoryUserRepository implements UserRepository {
     final private HashMap<Long, User> storage;
 
