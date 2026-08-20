@@ -8,7 +8,7 @@ import ru.kor.Utils.Exceptions.AppException;
 import ru.kor.Utils.Exceptions.ErrorCode;
 import ru.kor.Utils.Exceptions.UserRepository.Utils.RepositoryErrorCodes;
 
-public class RepositoryErrorMapper implements ErrorMapper {
+public class ValidationErrorMapper implements ErrorMapper {
     @Override
     public Set<ErrorCode> supportedCodes (){
         return Set.of(RepositoryErrorCodes.values());
